@@ -75,10 +75,14 @@
                     return
                 }        
 
-                this.visivel = true;
+                this.visivel = true;        
 
                 this.resposta.res = 'Pensando...'                    
                 
+                
+
+                
+
                 var url=''  
                 
                 if(this.respostaForcada === 'desativada'){                    
@@ -88,8 +92,8 @@
                     url = `https://yesno.wtf/api?force=${this.respostaForcada}`    
                 }
                 
-                var vm = this
-
+                setTimeout(function(){ 
+                    
                 axios.get(url)
                     .then(function (response) {
                      vm.resposta.res = response.data.answer === 'yes' ? 'Sim.' :
@@ -101,6 +105,10 @@
                         vm.resposta.res = 'Erro! Não pode executar a API. ' + error
                         vm.visivel = false;
                     })
+                 }, 3000);
+
+                var vm = this
+                
 
                     
             }
