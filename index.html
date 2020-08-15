@@ -6,16 +6,17 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>    
     <div id="app">
         <p class="titulo">Homer IA</p>                        
-        <img class="imagemCentralizadaAoCentro imagemHomer" src="https://i.pinimg.com/236x/06/01/4c/06014cb5dbc08b16d3f105d97bc5c85e--simpsons-quiz-los-simpsons.jpg">                    
+        <img class="imagemCentralizada imagemHomer" src="https://i.pinimg.com/236x/06/01/4c/06014cb5dbc08b16d3f105d97bc5c85e--simpsons-quiz-los-simpsons.jpg">                    
         <p class="subTitulo">Minha inteligência e limitada, faça uma pergunta do tipo SIM/NÃO.</p><br>            
         <input class="pergunta" v-model="question" style="width: 80%; font-size: 20px;">        
         <p class="resposta">{{ resposta.res }}</p>   
-        <img v-if="visivel" class="imagemCentralizadaAoCentro pensando" src="https://s-media-cache-ak0.pinimg.com/originals/d8/2e/1a/d82e1a2a4d5927866b4a8e2f027b9cbb.gif">
+        <img v-if="visivel" class="imagemCentralizada pensando" src="https://s-media-cache-ak0.pinimg.com/originals/d8/2e/1a/d82e1a2a4d5927866b4a8e2f027b9cbb.gif">
         <br>     
         <br>
-        <img class="imagemCentralizadaAoCentro" v-bind:src="resposta.img">
+        <!-- <img id="imgSimNao" class="imagemCentralizada" v-bind:src="resposta.img"> -->
+        <img id="imgSimNao" class="imagemCentralizada" v-bind:src="resposta.img">
         <br>
-        <a class="rodape">Homer IA</a>        
+        <!-- <a class="rodape">Homer IA</a>         -->
     </div>
     </body>
 </html>
@@ -143,7 +144,7 @@
         height:200px;
     }
 
-    .imagemCentralizadaAoCentro{
+    .imagemCentralizada{
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -154,4 +155,30 @@
         height:50px;
     }
 
+    /* PC */
+    @media screen and (min-width: 769px) {
+        #imgSimNao{
+            width: 350px;
+            height: 250px;
+        }
+    }
+    
+    /* tablet */
+    @media screen and (min-width: 569px) and (max-width: 768px) {
+        #imgSimNao{
+            width: 250px;
+            height: 150px;
+        }        
+    }
+
+    /* celular */
+    @media screen and (min-width: 0px) and (max-width: 568px) {
+        #imgSimNao{
+            width: 150px;
+            height: 75px;
+        }
+    
+
+    }    
 </style>
+
