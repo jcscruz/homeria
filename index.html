@@ -5,18 +5,17 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>    
     <div id="app">
-        <center>
-            <p style="font-size: 50px; margin: 20;">Homer IA</p>
-            <!-- <img src="https://media.tenor.com/images/87ba4770ced0c5ace4fbb5bb911cd9db/tenor.gif"> -->
-            <img src="https://i.pinimg.com/236x/06/01/4c/06014cb5dbc08b16d3f105d97bc5c85e--simpsons-quiz-los-simpsons.jpg">                    
-            <p style="font-size: 25px; margin: 10px;">Minha inteligência e limitada, faça uma pergunta do tipo sim/não.</p><br>            
-            <input id="per" v-model="question" style="width: 80%; font-size: 20px;">        
-            <p style="font-size: 20px;">{{ resposta.res }}</p>   
-            <img v-if="visivel" style="width: 100px; height: 100px;" src="https://s-media-cache-ak0.pinimg.com/originals/d8/2e/1a/d82e1a2a4d5927866b4a8e2f027b9cbb.gif">
-            <br>     
-            <br>
-            <img v-bind:src="resposta.img">
-        </center>
+        <p class="titulo">Homer IA</p>                        
+        <img class="imagemCentralizadaAoCentro imagemHomer" src="https://i.pinimg.com/236x/06/01/4c/06014cb5dbc08b16d3f105d97bc5c85e--simpsons-quiz-los-simpsons.jpg">                    
+        <p class="subTitulo">Minha inteligência e limitada, faça uma pergunta do tipo SIM/NÃO.</p><br>            
+        <input class="pergunta" v-model="question" style="width: 80%; font-size: 20px;">        
+        <p class="resposta">{{ resposta.res }}</p>   
+        <img v-if="visivel" class="imagemCentralizadaAoCentro pensando" src="https://s-media-cache-ak0.pinimg.com/originals/d8/2e/1a/d82e1a2a4d5927866b4a8e2f027b9cbb.gif">
+        <br>     
+        <br>
+        <img class="imagemCentralizadaAoCentro" v-bind:src="resposta.img">
+        <br>
+        <a class="rodape">Homer IA</a>        
     </div>
     </body>
 </html>
@@ -73,8 +72,9 @@
                 if (this.question.indexOf('?') === -1) {
                     this.resposta.res = 'Perguntas geralmente têm uma interrogação. ;-)'
                     return
-                }                              
-                // this.visivel = true;
+                }        
+
+                this.visivel = true;
 
                 this.resposta.res = 'Pensando...'                    
                 
@@ -88,18 +88,70 @@
                 }
                 
                 var vm = this
+
                 axios.get(url)
                     .then(function (response) {
                      vm.resposta.res = response.data.answer === 'yes' ? 'Sim.' :
                          response.data.answer === 'no' ? 'Não.' : 'Talvez!'                                        
-                    vm.resposta.img = response.data.image                    
+                        vm.resposta.img = response.data.image                    
+                        vm.visivel = false;
                     })
                     .catch(function (error) {
-                        this.resposta.res = 'Erro! Não pode executar a API. ' + error
+                        vm.resposta.res = 'Erro! Não pode executar a API. ' + error
+                        vm.visivel = false;
                     })
 
-                    //this.visivel = false;
+                    
             }
         }        
     })
 </script>
+
+<style>
+
+    .titulo{
+        font-size: 50px; 
+        margin: 20;
+        text-align: center;
+    }    
+
+    .subtitulo{
+        font-size: 25px; 
+        margin: 10px;
+        text-align: center;
+    }
+
+    .resposta{
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .rodape{
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .pergunta{        
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .imagemHomer{
+        width:200px;
+        height:200px;
+    }
+
+    .imagemCentralizadaAoCentro{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .pensando{
+        width:50px;
+        height:50px;
+    }
+
+</style>
