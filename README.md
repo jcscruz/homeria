@@ -17,8 +17,9 @@ Modo de usar:
       ,(virgula) para resposta SIM;
       .(virgula) para resposta NÃO;
       Caso você não indique a resposta, a mesma será aleatórea.
+      Para indicar novamente a resposta, apague toda a pergunta.
   
-  Após digitar o caractere ?(interrogação) o Homer IA irá responder a pergunta.
+  Após digitar o caractere ?(interrogação) o Homer IA irá responder a pergunta.  
   
   Agora se divirta com a cara de espando do seu amigo kkk.
 
