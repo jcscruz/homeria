@@ -1,23 +1,23 @@
 
 <html>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <body style="background-color:rgba(255, 217, 0, 0.74);">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>    
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+
     <div id="app">
         <p class="titulo">Homer IA</p>                        
-        <!-- <img class="imagemCentralizada imagemHomer" src="https://i.pinimg.com/236x/06/01/4c/06014cb5dbc08b16d3f105d97bc5c85e--simpsons-quiz-los-simpsons.jpg">                     -->
-        <img class="imagemCentralizada imagemHomer" src="https://upload.wikimedia.org/wikipedia/pt/0/02/Homer_Simpson_2006.png">
+        <img class="imagemCentralizada imagemHomer" src="https://i.pinimg.com/236x/06/01/4c/06014cb5dbc08b16d3f105d97bc5c85e--simpsons-quiz-los-simpsons.jpg">                            
         <p class="subTitulo">Minha inteligência e limitada, faça uma pergunta apenas cujo a resposta é SIM ou NÃO.</p><br>            
         <input class="pergunta" v-model="question" style="width: 80%; font-size: 20px;">        
         <p class="resposta">{{ resposta.res }}</p>   
         <img v-if="visivel" class="imagemCentralizada pensando" src="https://s-media-cache-ak0.pinimg.com/originals/d8/2e/1a/d82e1a2a4d5927866b4a8e2f027b9cbb.gif">
         <br>     
-        <br>
-        <!-- <img id="imgSimNao" class="imagemCentralizada" v-bind:src="resposta.img"> -->
+        <br>        
         <img id="imgSimNao" class="imagemCentralizada" v-bind:src="resposta.img">
         <br>
-        <!-- <a class="rodape">Homer IA</a>         -->
     </div>
     </body>
 </html>
@@ -34,24 +34,30 @@
                 img : 'https://otarot.pt/wp-content/uploads/2018/06/O-Que-E-O-Taro-Sim-Ou-Nao.jpg'
             },            
             respostaForcada : 'no',
-            desvia : 'entrar',
             visivel : false
         },
         watch: {
             // sempre que a pergunta mudar, essa função será executada
             question: function () {
             this.resposta.res = 'Esperando você parar de escrever...'
+            this.desvia==false;
             if(this.question == '.'){
                 this.question = ''
-                this.respostaForcada = 'no'                
+                this.respostaForcada = 'no'           
+                // this.desvia == true     
             }else if (this.question == ','){
                 this.question = '';
                 this.respostaForcada = 'yes'                
+                // this.desvia == true
             }
-            else if(this.question ==';'){
-                this.question = '';   
-                this.respostaForcada = 'desativada'                                                      
+            else{
+                this.respostaForcada = 'desativada'                
+                this.desvia == false
             }
+            // else if(this.question ==';'){
+            //     this.question = '';   
+            //     this.respostaForcada = 'desativada'                                                      
+            // }
             this.debouncedGetAnswer()
             }
         },
@@ -78,11 +84,7 @@
 
                 this.visivel = true;        
 
-                this.resposta.res = 'Pensando...'                    
-                
-                
-
-                
+                this.resposta.res = 'Pensando...'                                                    
 
                 var url=''  
                 
@@ -93,13 +95,14 @@
                     url = `https://yesno.wtf/api?force=${this.respostaForcada}`    
                 }
                 
+                var vm = this
+
                 setTimeout(function(){                     
                     axios.get(url)
                         .then(function (response) {
                         vm.resposta.res = response.data.answer === 'yes' ? 'Sim.' :
                             response.data.answer === 'no' ? 'Não.' : 'Talvez!'                                        
                             vm.resposta.img = response.data.image                    
-                            vm.visivel = false;
                         })
                         .catch(function (error) {
                             vm.resposta.res = 'Erro! Não pode executar a API. ' + error
@@ -107,7 +110,7 @@
                         })
                  }, 3000);
 
-                var vm = this
+                
                 
 
                     
@@ -177,7 +180,7 @@
     }
     
     /* tablet */
-    @media screen and (min-width: 569px) and (max-width: 768px) {
+    @media screen and (min-width: 294px) and (max-width: 768px) {
         #imgSimNao{
             width: 250px;
             height: 150px;
@@ -185,7 +188,7 @@
     }
 
     /* celular */
-    @media screen and (min-width: 0px) and (max-width: 568px) {
+    @media screen and (min-width: 0px) and (max-width: 293px) {
         #imgSimNao{
             width: 150px;
             height: 75px;
