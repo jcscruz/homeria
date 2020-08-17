@@ -16,7 +16,7 @@ Modo de usar:
     Ao iniciar a pergunta você deve digitar o caracter de resposta, são eles:
       ,(virgula) para resposta SIM;
       .(virgula) para resposta NÃO;
-      ;(virgula) para resposta aleatórea;
+      Caso você não indique a resposta, a mesma será aleatórea.
   
   Após digitar o caractere ?(interrogação) o Homer IA irá responder a pergunta.
   
